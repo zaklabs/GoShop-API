@@ -1,0 +1,46 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Environment
+.env
+
+# Uploads
+uploads/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test coverage
+*.out
+coverage.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+# Custom
+PROJECT_SUMMARY.md
+QUICKSTART.md
+register.json
+START_HERE.md
+TESTING.md
+login.json
+TROUBLESHOOTING.md
+ADMIN_DETECTION.md
+quick-admin-setup.ps1
+run-tests.ps1
+run.bat
+test-api.ps1
+test.bat
+setup-admin.ps1
+build.bat
