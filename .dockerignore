@@ -1,0 +1,61 @@
+# ============================================================================
+# .dockerignore - Files to exclude from Docker build context
+# ============================================================================
+
+# Git
+.git
+.gitignore
+.github
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Documentation
+*.md
+!README.md
+
+# Tests
+tests/
+*_test.go
+test.bat
+run-tests.ps1
+run-all-tests.bat
+run-all-tests.ps1
+run-single-test.ps1
+run-tests.ps1
+
+# Test data
+login.json
+register.json
+test-api.ps1
+
+# Build artifacts
+*.exe
+main
+bin/
+dist/
+
+# Uploads (will be mounted as volume)
+uploads/*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Scripts
+*.bat
+*.ps1
+Makefile
+
+# Logs
+*.log
+logs/

@@ -5,9 +5,13 @@
 *.dylib
 bin/
 dist/
+tests/
 
 # Environment
 .env
+.env.prod
+.env.local
+.env.*.local
 
 # Uploads
 uploads/
@@ -27,6 +31,17 @@ coverage.html
 .DS_Store
 Thumbs.db
 
+# Docker
+docker-compose.override.yml
+mysql_data/
+logs/
+*.log
+
+# SSL Certificates
+nginx/ssl/*.pem
+nginx/ssl/*.key
+nginx/ssl/*.crt
+
 
 # Custom
 PROJECT_SUMMARY.md
@@ -44,3 +59,24 @@ test-api.ps1
 test.bat
 setup-admin.ps1
 build.bat
+
+.env.test
+CI_CD_EXAMPLES.md
+Makefile
+run-all-tests.ps1
+run-all-tests.bat
+run-single-test.ps1
+setup-test-db.ps1
+TEST_GUIDE.md
+TESTING_QUICKREF.md
+
+DOCKER_FILES_INDEX.md
+DOCKER_GUIDE.md
+DOCKER_QUICKSTART.md
+DOCKER_SETUP_SUMMARY.md
+docker-compose.prod.yml
+generate-ssl.ps1
+generate-ssl.sh
+.env.prod.example
+docker.ps1
+nginx/ssl/README.md

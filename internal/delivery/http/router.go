@@ -68,6 +68,24 @@ func (r *Router) SetupRoutes(router *gin.Engine) {
 	router.Use(middleware.LoggerMiddleware())
 	router.Use(middleware.ErrorHandlerMiddleware())
 
+	// Health check endpoint
+	router.GET("/health", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"status":  "ok",
+			"service": "GoShop API",
+			"version": "1.0",
+		})
+	})
+
+	// Root endpoint
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Welcome to GoShop API",
+			"version": "1.0",
+			"docs":    "https://documenter.getpostman.com/view/14392918/2sB3Wk14Lh",
+		})
+	})
+
 	// API v1 routes
 	v1 := router.Group("/api/v1")
 	{

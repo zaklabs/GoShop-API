@@ -1,0 +1,75 @@
+# ============================================================================
+# Docker Compose Configuration for GoShop API
+# Services:
+# - db: MySQL 8.0 database
+# - api: GoShop API application
+# ============================================================================
+
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: goshop-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-evermos}
+      MYSQL_USER: ${DB_USER:-evermos_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-evermos123}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - goshop-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD:-rootpassword}"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
+
+  # GoShop API Application
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: goshop-api
+    restart: always
+    ports:
+      - "${SERVER_PORT:-8000}:8000"
+    environment:
+      # Database Configuration
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-evermos_user}
+      DB_PASSWORD: ${DB_PASSWORD:-evermos123}
+      DB_NAME: ${DB_NAME:-evermos}
+      
+      # JWT Configuration
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      JWT_EXPIRE_HOURS: ${JWT_EXPIRE_HOURS:-24}
+      
+      # Server Configuration
+      SERVER_PORT: 8000
+      
+      # Upload Configuration
+      UPLOAD_PATH: ./uploads
+      MAX_UPLOAD_SIZE: ${MAX_UPLOAD_SIZE:-5242880}
+    volumes:
+      - ./uploads:/root/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - goshop-network
+
+networks:
+  goshop-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
